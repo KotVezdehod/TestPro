@@ -2,26 +2,30 @@
 #ifndef __ADDINNATIVE_H__
 #define __ADDINNATIVE_H__
 
+#include <stdio.h>
+#include <wchar.h>
 #include "../include/ComponentBase.h"
-#include "../include/AddInDefBase.h"
 #include "../include/IMemoryManager.h"
 #include "../include/mobile.h"
-#include "../jni/jnienv.h"
-#include <iostream>
+#include "Elvis.h"
 
-jstring ToJniString(std::wstring* in_std_wstring);
+
+using namespace std;
+
+
+jstring ToJniString(wstring* in_std_wstring);
 wstring ToWStringJni(jstring jstr);
+void ToV8String(const wchar_t* wstr, tVariant* par, IMemoryManager* m_iMemory);
+
 static const wchar_t* g_PropNames[] =
 {
     
 };
 
-static const wchar_t* g_PropNamesRu[] =
-{
-    L"ОписаниеУстройства",
-    L"ТекущиеБроадкастФильтры_ч",
-    L"ПследниеДанныеИзПерехватчикаБроадкаста_ч"
-};
+//static const wchar_t* g_PropNamesRu[] =
+//{
+//
+//};
 
 static const wchar_t* g_MethodNames[] =
 {
@@ -84,10 +88,13 @@ public:
     virtual void ADDIN_API SetLocale(const WCHAR_T* loc);
 
     
+    
 private:
     long findName(const wchar_t* names[], const wchar_t* name, const uint32_t size) const;
     IMemoryManager* m_iMemory;
     IAddInDefBaseEx* m_iConnect;
+    bool isBKStarted; // current bk state
+    Elvis m_Elvis{};
 };
 
 #endif //__ADDINNATIVE_H__

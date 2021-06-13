@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "Elvis.h"
+
+#include "AddInNative.h"
 
 Elvis::Elvis()
 {
@@ -75,7 +75,6 @@ void Elvis::Initialize(IAddInDefBaseEx *cnn)	//В процедуру передается указатель 
 		}
 	}
 }
-
 
 void Elvis::StartBroadcast(wstring *std_wstr_filter, IAddInDefBaseEx* cnn)
 {

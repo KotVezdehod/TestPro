@@ -1,11 +1,13 @@
 #pragma once
+#include "pch.h"
 #include <iostream>
 #include "../jni/jnienv.h"
 #include "../include/AddInDefBase.h"
 #include "../include/IAndroidComponentHelper.h"
 #include "ConversionWchar.h"
-#include "AddInNative.h"
-using std::wstring;
+
+
+using namespace std;
 
 class Elvis
 {
