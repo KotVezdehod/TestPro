@@ -6,7 +6,11 @@
 #include "../include/AddInDefBase.h"
 #include "../include/IMemoryManager.h"
 #include "../include/mobile.h"
+#include "../jni/jnienv.h"
+#include <iostream>
 
+jstring ToJniString(std::wstring* in_std_wstring);
+wstring ToWStringJni(jstring jstr);
 static const wchar_t* g_PropNames[] =
 {
     

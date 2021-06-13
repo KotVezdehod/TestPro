@@ -3,7 +3,7 @@
 #include "ConversionWchar.h"
 #include <stdio.h>
 #include <wchar.h>
-
+using std::wstring;
 
 static const wchar_t g_ComponentNameAddIn[] = L"TestPro";
 static WcharWrapper s_ComponentClass(g_ComponentNameAddIn);
@@ -244,5 +244,32 @@ void AddInNative::SetLocale(const WCHAR_T* loc)
 {
 }
 
+//---------------------------------------------------------------------------//
+jstring ToJniString(wstring* in_std_wstring)
+{
+    JNIEnv* env = getJniEnv();
+    WCHAR_T* WCHART = nullptr;
+    convToShortWchar(&WCHART, in_std_wstring->c_str());
+    int len = getLenShortWcharStr(WCHART);
+
+    jstring retJString = env->NewString(WCHART, len);
+    delete[] WCHART;
+
+    return retJString;
+}
+
+wstring ToWStringJni(jstring jstr)
+{
+    wstring ret;
+    if (jstr)
+    {
+        JNIEnv* env = getJniEnv();
+        const jchar* jChars = env->GetStringChars(jstr, NULL);
+        jsize jLen = env->GetStringLength(jstr);
+        ret.assign(jChars, jChars + jLen);
+        env->ReleaseStringChars(jstr, jChars);
+    }
+    return ret;
+}
 
 
