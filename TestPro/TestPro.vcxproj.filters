@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\jni\jnienv.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AddInDefBase.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\addinlib.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\com.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ComponentBase.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IAndroidComponentHelper.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IMemoryManager.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mobile.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\types.h">
+      <Filter>AddIn</Filter>
+    </ClInclude>
+    <ClInclude Include="ConversionWchar.h" />
+    <ClInclude Include="Elvis.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="AddInNative.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AddIn">
+      <UniqueIdentifier>{321ad2c9-e7b5-452b-9de3-55617c9ae746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni">
+      <UniqueIdentifier>{0dea9bd0-e14e-4f1f-96da-9173dc561ee2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\jni\jnienv.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="Elvis.cpp" />
+    <ClCompile Include="AddInNative.cpp" />
+    <ClCompile Include="ConversionWchar.cpp" />
+  </ItemGroup>
+</Project>
