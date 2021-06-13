@@ -177,6 +177,9 @@
     <ClCompile Include="ConversionWchar.cpp" />
     <ClCompile Include="Elvis.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Native.docx" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

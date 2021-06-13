@@ -49,4 +49,7 @@
     <ClCompile Include="AddInNative.cpp" />
     <ClCompile Include="ConversionWchar.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Native.docx" />
+  </ItemGroup>
 </Project>
