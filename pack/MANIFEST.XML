@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bundle xmlns="http://v8.1c.ru/8.2/addin/bundle" name="ru_companyname_testpro">
+  <component os="Android" path="x86.so" codeType="c++" type="native" arch="i386"/>
+  <component os="Android" path="app-release.apk" codeType="java" type="native" arch="i386"/>
+  <component os="Android" path="ARM.so" codeType="c++" type="native" arch="ARM"/>
+  <component os="Android" path="app-release.apk" codeType="java" type="native" arch="ARM"/> 
+  <component os="Android" path="x64.so" codeType="c++" type="native" arch="ARM64"/>
+  <component os="Android" path="app-release.apk" codeType="java" type="native" arch="ARM64"/> 
+  <component os="Android" path="x86.so" codeType="c++" type="native" arch="x86_64"/>
+  <component os="Android" path="app-release.apk" codeType="java" type="native" arch="x86_64"/>  
+</bundle>
+
+  

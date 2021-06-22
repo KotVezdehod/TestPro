@@ -106,7 +106,7 @@ static WcharWrapper s_EventName(g_EventName);		//Это обертка, которая делает из 
 //https://www3.ntu.edu.sg/home/ehchua/programming/java/javanativeinterface.html
 // name of function built according to Java native call
 //
-extern "C" JNIEXPORT void JNICALL Java_ru_androidapp_testpro_dreamcatcher_OnBroadcastCatched(JNIEnv * env, jclass jClass, jlong pObject, jstring inJNIStr)
+extern "C" JNIEXPORT void JNICALL Java_ru_companyname_testpro_BroadcastReceiverJavaClass_OnBroadcastCatched(JNIEnv * env, jclass jClass, jlong pObject, jstring inJNIStr)
 {
 	wstring std_wstring = ToWStringJni(inJNIStr);					//jstring to wstring
 	WCHAR_T* WCHART = nullptr;

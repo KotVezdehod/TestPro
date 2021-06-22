@@ -14,7 +14,7 @@ class Elvis
 private:
 	jobject jObClass;
 	jclass jClass;
-	const wchar_t *DREAMCATCHER_CLASS_NAME = L"ru.testpro.dreamcatcher.catcher";
+	const wchar_t *DREAMCATCHER_CLASS_NAME = L"ru.companyname.testpro.BroadcastReceiverJavaClass";
 	
 public:
 	Elvis();
