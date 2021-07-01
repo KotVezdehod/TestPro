@@ -30,13 +30,17 @@ static const wchar_t* g_PropNames[] =
 static const wchar_t* g_MethodNames[] =
 {
     L"StartBroadcastsInterception",
-    L"StopBroadcastsInterception"
+    L"StopBroadcastsInterception",
+    L"StartHTTP",
+    L"StopHTTP"
 };
 
 static const wchar_t* g_MethodNamesRu[] =
 {
     L"ЗапуститьПерехватБроадкастов",
-    L"ОстановитьПерехватБроадкастов"
+    L"ОстановитьПерехватБроадкастов",
+    L"ЗапуститьHTTPСервер",
+    L"ОстановитьHTTPСервер"
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,6 +57,8 @@ public:
     {
         eMethStartBroadcastsInterception,
         eMethStopBroadcastsInterception,
+        eMethStartHTTP,
+        eMethStopHTTP,
         eMethLast       // Always last
     };
 

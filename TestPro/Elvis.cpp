@@ -1,7 +1,7 @@
 
 #include "AddInNative.h"
 
-Elvis::Elvis()
+Elvis::Elvis() : loc_iMemoryManager(nullptr)
 {
 	jClass = nullptr;
 	jObClass = nullptr;
@@ -23,8 +23,10 @@ Elvis::~Elvis()
 
 }
 
-void Elvis::Initialize(IAddInDefBaseEx *cnn)	//В процедуру передается указатель на объект платформы 1с.
+void Elvis::Initialize(IAddInDefBaseEx *cnn, IMemoryManager *in_iMemoryManager)	//В процедуру передается указатель на объект платформы 1с.
 {
+	loc_iMemoryManager = in_iMemoryManager;
+
 	if (!jObClass)
 	{
 		IAndroidComponentHelper* helper = (IAndroidComponentHelper*)cnn->GetInterface(eIAndroidComponentHelper);		
@@ -98,6 +100,42 @@ void Elvis::StopBroadcast()
 	}
 }
 
+
+#pragma region http
+void Elvis::StartHTTP(tVariant* pvarRetValue, int PortNumber)
+{
+	JNIEnv* env = getJniEnv();
+	jmethodID methID = env->GetMethodID(jClass, "StartHTTP", "(I)Ljava/lang/String;");
+	jstring stringObject = static_cast<jstring>(env->CallObjectMethod(jClass, methID, PortNumber));
+	wstring std_wstr = ToWStringJni(stringObject);
+	env->DeleteLocalRef(stringObject);
+	ToV8String(std_wstr.c_str(), pvarRetValue, loc_iMemoryManager);
+
+	return;
+}
+
+void Elvis::StopHTTP(tVariant* pvarRetValue)
+{
+	JNIEnv* env = getJniEnv();
+	jmethodID methID = env->GetMethodID(jClass, "StopHTTP", "()Ljava/lang/String;");
+	jstring stringObject = static_cast<jstring>(env->CallObjectMethod(jObClass, methID));
+	wstring std_wstr = ToWStringJni(stringObject);
+	env->DeleteLocalRef(stringObject);
+	ToV8String(std_wstr.c_str(), pvarRetValue, loc_iMemoryManager);
+
+	return;
+}
+
+void Elvis::StopHTTP()
+{
+	JNIEnv* env = getJniEnv();
+	jmethodID methID = env->GetMethodID(jClass, "StopHTTP", "()Ljava/lang/String;");
+	env->CallObjectMethod(jObClass, methID);
+	return;
+}
+
+#pragma endregion
+
 static const wchar_t g_EventSource[] = L"TestPro";
 static const wchar_t g_EventName[] = L"BroadcastCatched";
 static WcharWrapper s_EventSource(g_EventSource);		//Это обертка, которая делает из wchar_t WCHAR_T (двухбайтную строку из четырехбайтной).
@@ -116,5 +154,21 @@ extern "C" JNIEXPORT void JNICALL Java_ru_companyname_testpro_BroadcastReceiverJ
 	pAddIn->ExternalEvent(s_EventSource, s_EventName, WCHART);		//Вызываем метод интерфейса IAddInDefBaseEx - это инициирует внешнее событие в платформе 1с.
 
 	delete[] WCHART;					//Освобождаем память, т.к. в функции convToShortWchar она выделяется из хипа потока методом new.
+
+}
+
+static const wchar_t g_EventName_http[] = L"http_request";
+static WcharWrapper s_EventName_http(g_EventName_http);
+
+extern "C" JNIEXPORT void JNICALL Java_ru_companyname_testpro_catcher_OnHttpServerServ(JNIEnv * env, jclass jClass, jlong pObject, jstring inReq)
+{
+	wstring std_wstring = ToWStringJni(inReq);
+	WCHAR_T* WCHART = nullptr;
+	convToShortWchar(&WCHART, std_wstring.c_str());
+
+	IAddInDefBaseEx* pAddIn = (IAddInDefBaseEx*)pObject;
+	pAddIn->ExternalEvent(s_EventSource, s_EventName_http, WCHART);
+
+	delete[] WCHART;
 
 }
