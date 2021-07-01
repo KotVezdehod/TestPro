@@ -160,7 +160,7 @@ extern "C" JNIEXPORT void JNICALL Java_ru_companyname_testpro_BroadcastReceiverJ
 static const wchar_t g_EventName_http[] = L"http_request";
 static WcharWrapper s_EventName_http(g_EventName_http);
 
-extern "C" JNIEXPORT void JNICALL Java_ru_companyname_testpro_catcher_OnHttpServerServ(JNIEnv * env, jclass jClass, jlong pObject, jstring inReq)
+extern "C" JNIEXPORT void JNICALL Java_ru_companyname_testpro_BroadcastReceiverJavaClass_OnHttpServerServ(JNIEnv * env, jclass jClass, jlong pObject, jstring inReq)
 {
 	wstring std_wstring = ToWStringJni(inReq);
 	WCHAR_T* WCHART = nullptr;

@@ -220,6 +220,9 @@ long AddInNative::GetNParams(const long lMethodNum)
     case eMethStopBroadcastsInterception:
         return 0;
 
+    case eMethStartHTTP:
+        return 1;
+
     default:
         break;
     }
@@ -243,7 +246,10 @@ bool AddInNative::HasRetVal(const long lMethodNum)
 
     case eMethStopBroadcastsInterception:
         return true;
-
+    case eMethStartHTTP:
+        return true;
+    case eMethStopHTTP:
+        return true;
     default:
         break;
     }
@@ -276,7 +282,7 @@ bool AddInNative::CallAsFunc(const long lMethodNum,
             //В заголовочном файле объявили приватную переменную (m_Elvis). 
             //При инициализации класса AddInNative сразу инициализируется и переменная "m_Elvis" - вызывается конструктор класса "Elvis".
             //После этого класс в памяти гарантировано и мы можем дергать его за методы.
-            m_Elvis.Initialize(m_iConnect);
+            m_Elvis.Initialize(m_iConnect, m_iMemory);
             m_Elvis.StartBroadcast(&std_wstr, m_iConnect);
             
             //Эта процедура идет в примере к внешней компоненте. Она сразу преобразует wchar_t в tVariant и устанавливает ему 1сный тип "строка". Сладко...
@@ -310,6 +316,32 @@ bool AddInNative::CallAsFunc(const long lMethodNum,
 
 	}
 	break;
+
+    case eMethStartHTTP:
+
+        if (!lSizeArray || !paParams)
+        {
+            ToV8String(L"Не указан порт прослушивания!", pvarRetValue, m_iMemory);
+            return true;
+        }
+
+        if (!isNumericParameter(paParams))
+        {
+            ToV8String(L"Номер порта должен быть числом.", pvarRetValue, m_iMemory);
+            return true;
+        }
+
+        m_Elvis.Initialize(m_iConnect, m_iMemory);
+        m_Elvis.StartHTTP(pvarRetValue, numericValue(paParams));
+
+        return true;
+
+    case eMethStopHTTP:
+
+        m_Elvis.Initialize(m_iConnect, m_iMemory);
+        m_Elvis.StopHTTP(pvarRetValue);
+
+        return true;
 
 	default:
 		break;
@@ -364,4 +396,26 @@ void ToV8String(const wchar_t* wstr, tVariant* par, IMemoryManager* m_iMemory)
         par->vt = VTYPE_EMPTY;
 }
 
+bool isNumericParameter(tVariant* par)
+{
+    return par->vt == VTYPE_I4 || par->vt == VTYPE_UI4 || par->vt == VTYPE_R8;
+}
+
+long numericValue(tVariant* par)
+{
+    long ret = 0;
+    switch (par->vt)
+    {
+    case VTYPE_I4:
+        ret = par->lVal;
+        break;
+    case VTYPE_UI4:
+        ret = par->ulVal;
+        break;
+    case VTYPE_R8:
+        ret = par->dblVal;
+        break;
+    }
+    return ret;
+}
 

@@ -16,6 +16,9 @@ using namespace std;
 jstring ToJniString(wstring* in_std_wstring);
 wstring ToWStringJni(jstring jstr);
 void ToV8String(const wchar_t* wstr, tVariant* par, IMemoryManager* m_iMemory);
+bool isNumericParameter(tVariant*);
+long numericValue(tVariant*);
+
 
 static const wchar_t* g_PropNames[] =
 {
