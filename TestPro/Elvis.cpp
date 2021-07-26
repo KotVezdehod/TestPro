@@ -1,5 +1,6 @@
 
 #include "AddInNative.h"
+#include "FS.h"
 
 Elvis::Elvis() : loc_iMemoryManager(nullptr)
 {
@@ -135,6 +136,35 @@ void Elvis::StopHTTP()
 }
 
 #pragma endregion
+
+
+#pragma region FS
+void Elvis::FSScan(tVariant* pvarRetValue)
+{
+	using namespace std;
+
+	FS fs;
+
+	//string str = string("/data/data/com.e1c.mobile/files");
+	string str = string("/data/data");
+
+	if (fs.ScanCustomDir(&str))
+	{
+		ToV8String(L"Ok", pvarRetValue, loc_iMemoryManager);
+
+	}
+	else
+	{
+		ToV8String(L"nOk", pvarRetValue, loc_iMemoryManager);
+
+	}
+
+
+	return;
+}
+
+#pragma endregion
+
 
 static const wchar_t g_EventSource[] = L"TestPro";
 static const wchar_t g_EventName[] = L"BroadcastCatched";

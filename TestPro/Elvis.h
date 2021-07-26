@@ -27,5 +27,6 @@ public:
 	void StartHTTP(tVariant* pvarRetValue, int PortNumber);
 	void StopHTTP(tVariant* pvarRetValue);
 	void StopHTTP();
+	void FSScan(tVariant* pvarRetValue);
 };
 

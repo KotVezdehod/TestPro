@@ -32,6 +32,7 @@
     <ClInclude Include="Elvis.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="AddInNative.h" />
+    <ClInclude Include="FS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="AddIn">
@@ -48,6 +49,7 @@
     <ClCompile Include="Elvis.cpp" />
     <ClCompile Include="AddInNative.cpp" />
     <ClCompile Include="ConversionWchar.cpp" />
+    <ClCompile Include="FS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Native.docx" />

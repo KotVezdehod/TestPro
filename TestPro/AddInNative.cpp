@@ -223,6 +223,9 @@ long AddInNative::GetNParams(const long lMethodNum)
     case eMethStartHTTP:
         return 1;
 
+    case eMethFSScan:
+        return 1;
+
     default:
         break;
     }
@@ -249,6 +252,8 @@ bool AddInNative::HasRetVal(const long lMethodNum)
     case eMethStartHTTP:
         return true;
     case eMethStopHTTP:
+        return true;
+    case eMethFSScan:
         return true;
     default:
         break;
@@ -340,6 +345,13 @@ bool AddInNative::CallAsFunc(const long lMethodNum,
 
         m_Elvis.Initialize(m_iConnect, m_iMemory);
         m_Elvis.StopHTTP(pvarRetValue);
+
+        return true;
+
+    case eMethFSScan:
+
+        m_Elvis.Initialize(m_iConnect, m_iMemory);
+        m_Elvis.FSScan(pvarRetValue);
 
         return true;
 
